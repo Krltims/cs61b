@@ -109,18 +109,56 @@ public class Model extends Observable {
     public boolean tilt(Side side) {
         boolean changed;
         changed = false;
-
+        int s=this.size();
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
-
+        System.out.println(side);
+        this.board.setViewingPerspective(side);
+            for (int i=0; i<s; i++){
+                int[][] movable=new int[s][s];
+                for (int j=s-2; j>=0; j--){
+                    if
+                        (this.board.tile(i, j) == null){
+                        continue;
+                    }
+                    int merge_tile=search(i,j,this.board,movable);
+                    if (merge_tile==-1){continue;}
+                    changed=true;
+                    Tile t=board.tile(i,j);
+                    if(this.board.tile(i,merge_tile)!=null){
+                        movable[i][merge_tile]=-1;
+                        this.score+=2*this.board.tile(i,merge_tile).value();
+                    }
+                    this.board.move(i,merge_tile,t);
+                }
+            }
         checkGameOver();
         if (changed) {
             setChanged();
         }
+        this.board.setViewingPerspective(Side.NORTH);
         return changed;
     }
-
+    public int search(int i,int j,Board board,int[][] movable){
+        int ans=-1;
+        for (int k=j+1; k<movable.length; k++){
+            if(movable[i][k]==-1){
+                return ans;
+            }
+            if(board.tile(i,k)==null){
+                ans=k;
+                continue;
+            }
+            if (board.tile(i,k).value()!= board.tile(i,j).value()){
+                return ans;
+            }
+            if (board.tile(i,k).value()== board.tile(i,j).value()){
+                return k;
+            }
+        }
+        return ans;
+    }
     /** Checks if the game is over and sets the gameOver variable
      *  appropriately.
      */
