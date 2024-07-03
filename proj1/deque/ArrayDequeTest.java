@@ -123,14 +123,19 @@ public class ArrayDequeTest {
         for (int i = 0; i < 1000000; i++) {
             lld1.addLast(i);
         }
-        for (double i = 0; i < 500000; i++) {
-            assertEquals("Should have the same value", i, (double) lld1.removeFirst(), 0.0);
+        for (int i = 0; i < 500000; i++) {
+            assertEquals("Should have the same value", i,lld1.removeFirst());
         }
 
-        for (double i = 999999; i > 500000; i--) {
-            assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
+        for (int i = 999999; i > 500000; i--) {
+            assertEquals("Should have the same value", i, lld1.removeLast());
         }
 
-
+    }
+    @Test
+    public void UniqueTest() {
+        ArrayDeque lld1 = new ArrayDeque();
+        lld1.addLast(1);
+        assertEquals("Should have the same value", 1, lld1.removeFirst());
     }
 }
