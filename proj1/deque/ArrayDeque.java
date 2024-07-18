@@ -69,12 +69,6 @@ package deque;
     }
 
     @Override
-    //  Returns true if deque is empty, false otherwise.
-    public boolean isEmpty() {
-        return size==0;
-    }
-
-    @Override
     //  Returns the number of items in the deque.
     public int size(){
         return size;
