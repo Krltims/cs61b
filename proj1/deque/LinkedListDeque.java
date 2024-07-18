@@ -4,7 +4,7 @@ import java.security.PublicKey;
 import java.util.NoSuchElementException;
 
 /** Performs some basic linked list tests. */
-public class LinkedListDeque<T>{
+public class LinkedListDeque<T> implements Deque<T> {
     public int size;
     public Node sent;
 
@@ -28,6 +28,7 @@ public class LinkedListDeque<T>{
         sent.head=sent;
     }
 
+    @Override
 //  Adds an item of type T to the front of the deque. You can assume that item is never null.
     public void addFirst(T item){
         Node firstnode=new Node(item,sent,sent.next);
@@ -36,6 +37,7 @@ public class LinkedListDeque<T>{
         size+=1;
     }
 
+    @Override
 //  Adds an item of type T to the back of the deque. You can assume that item is never null.
     public void addLast(T item){
         Node lastnode=new Node(item,sent.head,sent);
@@ -44,15 +46,19 @@ public class LinkedListDeque<T>{
         size+=1;
     }
 
+    @Override
 //  Returns true if deque is empty, false otherwise.
     public boolean isEmpty() {
         return size == 0;
     }
+
+    @Override
 //  Returns the number of items in the deque.
     public int size(){
         return size;
     }
 
+    @Override
 //  Prints the items in the deque from first to last, separated by a space. Once all the items have been printed, print out a new line.
     public void printDeque(){
         Node temp=sent.next;
@@ -65,7 +71,7 @@ public class LinkedListDeque<T>{
             temp=temp.next;
         }
     }
-
+    @Override
 //  Removes and returns the item at the front of the deque. If no such item exists, returns null.
     public T removeFirst(){
         if (isEmpty()){
@@ -78,6 +84,7 @@ public class LinkedListDeque<T>{
         return val;
     }
 
+    @Override
 //  Removes and returns the item at the back of the deque. If no such item exists, returns null.
     public T removeLast(){
         if (isEmpty()){
@@ -90,6 +97,7 @@ public class LinkedListDeque<T>{
         return val;
     }
 
+    @Override
 //   Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth. If no such item exists, returns null. Must not alter the deque!
     public T get(int index){
         if(index<0 || index>size){
