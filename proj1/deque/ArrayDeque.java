@@ -160,7 +160,8 @@ public class ArrayDeque <T> implements Deque<T>, Iterable<T> {
 
     @Override
     public boolean equals(Object o){
-        if(o instanceof ArrayDeque otherarraydeque){
+        if(o instanceof ArrayDeque){
+            ArrayDeque otherarraydeque=(ArrayDeque) o;
             if(otherarraydeque.size()!=this.size()){
                 return false;
             }
