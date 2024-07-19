@@ -117,7 +117,7 @@ public class ArrayDequeTest {
     }
 
     @Test
-    /* Add large number of elements to deque; check if order is correct. */
+        /* Add large number of elements to deque; check if order is correct. */
     public void bigLLDequeTest() {
 
         System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
@@ -197,6 +197,24 @@ public class ArrayDequeTest {
         lld1.removeFirst();
         lld1.removeLast();
         ArrayDeque lld2 = new ArrayDeque();
+        lld2.addLast(2);
+        lld2.addLast(3);
+        lld2.addLast(4);
+        lld2.addLast(5);
+        assertTrue(lld1.equals(lld2));
+    }
+    @Test
+    public void test_equals2(){
+        ArrayDeque lld1 = new ArrayDeque();
+        lld1.addLast(1);
+        lld1.addLast(2);
+        lld1.addLast(3);
+        lld1.addLast(4);
+        lld1.addLast(5);
+        lld1.addLast(6);
+        lld1.removeFirst();
+        lld1.removeLast();
+        LinkedListDeque lld2 = new LinkedListDeque();
         lld2.addLast(2);
         lld2.addLast(3);
         lld2.addLast(4);

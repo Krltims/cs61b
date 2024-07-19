@@ -1,15 +1,16 @@
 package deque;
 
 import java.security.PublicKey;
+import java.util.ArrayDeque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /** Performs some basic linked list tests. */
 public class LinkedListDeque<T> implements Deque<T> , Iterable<T> {
-    public int size;
-    public Node sent;
+    private int size;
+    private Node sent;
 
-    public class Node{
+    private class Node{
         public T value;
         public Node head;
         public Node next;
@@ -110,7 +111,7 @@ public class LinkedListDeque<T> implements Deque<T> , Iterable<T> {
         return new LinkedListDequeIterator<>();
     }
 
-    public class LinkedListDequeIterator<T> implements Iterator<T>{
+    private class LinkedListDequeIterator<T> implements Iterator<T>{
         private int current;
         public LinkedListDequeIterator(){
             current=0;
@@ -141,6 +142,19 @@ public class LinkedListDeque<T> implements Deque<T> , Iterable<T> {
                 ans+=1;
             }
         }
+        else if(o instanceof ArrayDeque){
+            deque.ArrayDeque otherarraydeque=(deque.ArrayDeque) o;
+            if(otherarraydeque.size()!=this.size()){
+                return false;
+            }
+            int ans=0;
+            while(ans<otherarraydeque.size()){
+                if(!(otherarraydeque.get(ans).equals(this.get(ans)))){
+                    return false;
+                };
+                ans+=1;
+            }
+        }
         else{
             return false;
         }
@@ -155,7 +169,7 @@ public class LinkedListDeque<T> implements Deque<T> , Iterable<T> {
         Node temp=sent.next;
         return method1(index,temp);
     }
-    public T method1(int num,Node temp){
+    private T method1(int num,Node temp){
         if (num==0){
             return temp.value;
         }
