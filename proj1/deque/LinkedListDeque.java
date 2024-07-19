@@ -1,7 +1,6 @@
 package deque;
 
 import java.security.PublicKey;
-import java.util.ArrayDeque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
