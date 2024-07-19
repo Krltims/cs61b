@@ -1,106 +1,103 @@
 package deque;
-
-import java.security.PublicKey;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 /** Performs some basic linked list tests. */
-public class LinkedListDeque<T> implements Deque<T> , Iterable<T> {
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private int size;
     private Node sent;
 
     private class Node{
-        public T value;
-        public Node head;
-        public Node next;
+        private T value;
+        private Node head;
+        private Node next;
 
-        public Node (T v, Node f,Node a){
+        public Node (T v, Node f, Node a) {
             value = v;
-            head=f;
-            next=a;
+            head = f;
+            next = a;
         }
     }
 
-    public LinkedListDeque(){
+    public LinkedListDeque() {
         //item=(typo[]) new Object[100];
-        size=0;
-        sent=new Node(null,null,null);
-        sent.next=sent;
-        sent.head=sent;
+        size = 0;
+        sent = new Node(null, null, null);
+        sent.next = sent;
+        sent.head = sent;
     }
 
     @Override
 //  Adds an item of type T to the front of the deque. You can assume that item is never null.
-    public void addFirst(T item){
-        Node firstnode=new Node(item,sent,sent.next);
-        sent.next.head=firstnode;
-        sent.next=firstnode;
-        size+=1;
+    public void addFirst(T item) {
+        Node firstnode = new Node(item, sent, sent.next);
+        sent.next.head = firstnode;
+        sent.next = firstnode;
+        size += 1;
     }
 
     @Override
 //  Adds an item of type T to the back of the deque. You can assume that item is never null.
-    public void addLast(T item){
-        Node lastnode=new Node(item,sent.head,sent);
-        sent.head.next=lastnode;
-        sent.head=lastnode;
-        size+=1;
+    public void addLast(T item) {
+        Node lastnode = new Node(item, sent.head, sent);
+        sent.head.next = lastnode;
+        sent.head = lastnode;
+        size += 1;
     }
 
     @Override
 //  Returns the number of items in the deque.
-    public int size(){
+    public int size() {
         return size;
     }
 
     @Override
 //  Prints the items in the deque from first to last, separated by a space. Once all the items have been printed, print out a new line.
-    public void printDeque(){
-        Node temp=sent.next;
-        while(temp!=sent){
-            if(temp.next==sent){
+    public void printDeque() {
+        Node temp = sent.next;
+        while (temp != sent){
+            if (temp.next == sent) {
                 System.out.println(temp.value);
                 return;
             }
             System.out.print(temp.value+" ");
-            temp=temp.next;
+            temp = temp.next;
         }
     }
     @Override
 //  Removes and returns the item at the front of the deque. If no such item exists, returns null.
-    public T removeFirst(){
-        if (isEmpty()){
+    public T removeFirst() {
+        if (isEmpty()) {
             return null;
         }
-        T val=sent.next.value;
-        sent.next.next.head=sent;
-        sent.next=sent.next.next;
-        size-=1;
+        T val = sent.next.value;
+        sent.next.next.head = sent;
+        sent.next = sent.next.next;
+        size -= 1;
         return val;
     }
 
     @Override
 //  Removes and returns the item at the back of the deque. If no such item exists, returns null.
-    public T removeLast(){
-        if (isEmpty()){
+    public T removeLast() {
+        if (isEmpty()) {
             return null;
         }
-        T val=sent.head.value;
-        sent.head.head.next=sent;
-        sent.head=sent.head.head;
-        size-=1;
+        T val = sent.head.value;
+        sent.head.head.next = sent;
+        sent.head = sent.head.head;
+        size -= 1;
         return val;
     }
 
     @Override
 //   Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth. If no such item exists, returns null. Must not alter the deque!
-    public T get(int index){
-        if(index<0 || index>size){
+    public T get(int index) {
+        if (index<0 || index>size) {
             return null;
         }
-        Node temp=sent.next;
-        for(int i=0;i<index;i++){
-            temp=temp.next;
+        Node temp = sent.next;
+        for (int i=0;i<index;i++) {
+            temp = temp.next;
         }
         return temp.value;
     }
@@ -112,67 +109,67 @@ public class LinkedListDeque<T> implements Deque<T> , Iterable<T> {
 
     private class LinkedListDequeIterator<T> implements Iterator<T>{
         private int current;
-        public LinkedListDequeIterator(){
-            current=0;
+        public LinkedListDequeIterator() {
+            current = 0;
         }
         @Override
         public boolean hasNext() {
-            return current<size();
+            return current < size();
         }
         @Override
         public T next() {
             T tmp=(T) get(current);
-            current+=1;
+            current += 1;
             return tmp;
         }
     }
     @Override
-    public boolean equals(Object o){
-        if(o instanceof LinkedListDeque){
-            LinkedListDeque otherarraydeque=(LinkedListDeque) o;
-            if(otherarraydeque.size()!=this.size()){
+    public boolean equals(Object o) {
+        if (o instanceof LinkedListDeque) {
+            LinkedListDeque otherarraydeque = (LinkedListDeque) o;
+            if (otherarraydeque.size() != this.size()) {
                 return false;
             }
-            int ans=0;
-            while(ans<otherarraydeque.size()){
-                if(!(otherarraydeque.get(ans).equals(this.get(ans)))){
+            int ans = 0;
+            while (ans < otherarraydeque.size()) {
+                if (!(otherarraydeque.get(ans).equals(this.get(ans)))) {
                     return false;
                 };
-                ans+=1;
+                ans += 1;
             }
         }
-        else if(o instanceof ArrayDeque){
-            deque.ArrayDeque otherarraydeque=(deque.ArrayDeque) o;
-            if(otherarraydeque.size()!=this.size()){
+        else if(o instanceof ArrayDeque) {
+            deque.ArrayDeque otherarraydeque = (deque.ArrayDeque) o;
+            if (otherarraydeque.size() != this.size()){
                 return false;
             }
-            int ans=0;
-            while(ans<otherarraydeque.size()){
-                if(!(otherarraydeque.get(ans).equals(this.get(ans)))){
+            int ans = 0;
+            while (ans < otherarraydeque.size()) {
+                if (!(otherarraydeque.get(ans).equals(this.get(ans)))) {
                     return false;
                 };
-                ans+=1;
+                ans += 1;
             }
         }
-        else{
+        else {
             return false;
         }
         return true;
     }
 
     //  Same as get, but uses recursion.
-    public T getRecursive(int index){
-        if(index<0 || index>size){
+    public T getRecursive(int index) {
+        if (index < 0 || index > size) {
             return null;
         }
-        Node temp=sent.next;
-        return method1(index,temp);
+        Node temp = sent.next;
+        return method1(index, temp);
     }
-    private T method1(int num,Node temp){
-        if (num==0){
+    private T method1(int num, Node temp) {
+        if (num == 0) {
             return temp.value;
         }
-        return method1(num-1,temp.next);
+        return method1(num-1, temp.next);
     }
 
 }

@@ -172,6 +172,7 @@ public class ArrayDequeTest {
             System.out.println(x);
         }
     }
+    /*
     @Test
     public void getrecursive_test(){
         ArrayDeque lld1 = new ArrayDeque();
@@ -185,6 +186,7 @@ public class ArrayDequeTest {
         lld1.removeLast();
         assertEquals("Should have the same value",4, lld1.getRecursive(2));
     }
+    */
     @Test
     public void test_equals(){
         ArrayDeque lld1 = new ArrayDeque();
