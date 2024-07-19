@@ -1,6 +1,8 @@
 package deque;
 
-    public class ArrayDeque <T> implements Deque<T>{
+import java.util.Iterator;
+
+public class ArrayDeque <T> implements Deque<T>, Iterable<T> {
         public T[] items;
         public int head;
         public int tail;
@@ -117,11 +119,62 @@ package deque;
     if(index<0 || index>=size){
         return null;
     }
-    int pos=(head+index)%size;
+    int pos=head;
+    for(int i=index;i>0;i--){
+        pos=plus_one(pos);
+    }
     return items[pos];
     }
-
-    public T getfirst(){
-        return items[head];
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayDequeIterator<T>();
     }
+
+    private class ArrayDequeIterator<T> implements Iterator<T>{
+
+        private int current;
+        public ArrayDequeIterator(){
+            current=0;
+        }
+        @Override
+        public boolean hasNext() {
+            return current<size;
+        }
+
+        @Override
+        public T next() {
+            T tmp=(T) get(current);
+            current+=1;
+            return tmp;
+        }
+    }
+    public T getRecursive(int index){
+        return helper(head,index);
+    }
+    private T helper(int head,int index){
+        if(index==0){
+            return items[head];
+        }
+        return helper(plus_one(head),index-1);
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof ArrayDeque otherarraydeque){
+            if(otherarraydeque.size()!=this.size()){
+                return false;
+            }
+            int ans=0;
+            while(ans<otherarraydeque.size()){
+                if(!(otherarraydeque.get(ans).equals(this.get(ans)))){
+                    return false;
+                };
+                ans+=1;
+            }
+        }
+        else{
+            return false;
+        }
+        return true;
+        }
 }

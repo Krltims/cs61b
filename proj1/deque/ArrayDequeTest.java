@@ -1,6 +1,9 @@
 package deque;
 
 import org.junit.Test;
+
+import java.util.Iterator;
+
 import static org.junit.Assert.*;
 
 public class ArrayDequeTest {
@@ -150,5 +153,54 @@ public class ArrayDequeTest {
         lld1.removeFirst();
         lld1.removeLast();
         assertEquals("Should have the same value",2, lld1.get(0));
+    }
+
+    @Test
+    public void itertor_test(){
+        ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
+        lld1.addLast(1);
+        lld1.addLast(2);
+        lld1.addLast(3);
+        lld1.addLast(4);
+        lld1.addLast(5);
+        lld1.addLast(6);
+        lld1.removeFirst();
+        lld1.removeLast();
+        Iterator<Integer> test =lld1.iterator();
+        while(test.hasNext()){
+            int x=test.next();
+            System.out.println(x);
+        }
+    }
+    @Test
+    public void getrecursive_test(){
+        ArrayDeque lld1 = new ArrayDeque();
+        lld1.addLast(1);
+        lld1.addLast(2);
+        lld1.addLast(3);
+        lld1.addLast(4);
+        lld1.addLast(5);
+        lld1.addLast(6);
+        lld1.removeFirst();
+        lld1.removeLast();
+        assertEquals("Should have the same value",4, lld1.getRecursive(2));
+    }
+    @Test
+    public void test_equals(){
+        ArrayDeque lld1 = new ArrayDeque();
+        lld1.addLast(1);
+        lld1.addLast(2);
+        lld1.addLast(3);
+        lld1.addLast(4);
+        lld1.addLast(5);
+        lld1.addLast(6);
+        lld1.removeFirst();
+        lld1.removeLast();
+        ArrayDeque lld2 = new ArrayDeque();
+        lld2.addLast(2);
+        lld2.addLast(3);
+        lld2.addLast(4);
+        lld2.addLast(5);
+        assertTrue(lld1.equals(lld2));
     }
 }

@@ -1,10 +1,11 @@
 package deque;
 
 import java.security.PublicKey;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /** Performs some basic linked list tests. */
-public class LinkedListDeque<T> implements Deque<T> {
+public class LinkedListDeque<T> implements Deque<T> , Iterable<T> {
     public int size;
     public Node sent;
 
@@ -103,7 +104,49 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
         return temp.value;
     }
-//  Same as get, but uses recursion.
+
+    @Override
+    public Iterator<T> iterator() {
+        return new LinkedListDequeIterator<>();
+    }
+
+    public class LinkedListDequeIterator<T> implements Iterator<T>{
+        private int current;
+        public LinkedListDequeIterator(){
+            current=0;
+        }
+        @Override
+        public boolean hasNext() {
+            return current<size();
+        }
+        @Override
+        public T next() {
+            T tmp=(T) get(current);
+            current+=1;
+            return tmp;
+        }
+    }
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof LinkedListDeque otherarraydeque){
+            if(otherarraydeque.size()!=this.size()){
+                return false;
+            }
+            int ans=0;
+            while(ans<otherarraydeque.size()){
+                if(!(otherarraydeque.get(ans).equals(this.get(ans)))){
+                    return false;
+                };
+                ans+=1;
+            }
+        }
+        else{
+            return false;
+        }
+        return true;
+    }
+
+    //  Same as get, but uses recursion.
     public T getRecursive(int index){
         if(index<0 || index>size){
             return null;
@@ -117,4 +160,5 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
         return method1(num-1,temp.next);
     }
+
 }

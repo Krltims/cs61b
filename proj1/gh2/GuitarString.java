@@ -13,10 +13,10 @@ public class GuitarString {
 
     /* Buffer for storing sound data. */
     private Deque<Double> buffer;
-
+    private int buffer_size;
     /* Create a guitar string of the given frequency.  */
     public GuitarString(double frequency) {
-        int buffer_size=(int) Math.round(SR/frequency);
+        buffer_size=(int) Math.round(SR/frequency);
         buffer= new ArrayDeque<Double>();
         for(int i=1;i<=buffer_size;i++) {
             buffer.addLast(0.0);
@@ -33,8 +33,8 @@ public class GuitarString {
         //       Math.random() - 0.5 to generate new random numbers for each array index.
         for(int i=1;i<= buffer.size();i++){
             double rr=Math.random()-0.5;
-            buffer.removeLast();
-            buffer.addFirst(rr);
+            buffer.removeFirst();
+            buffer.addLast(rr);
         }
     }
 
@@ -43,7 +43,7 @@ public class GuitarString {
      */
     public void tic() {
         double tmp=buffer.removeFirst();
-        buffer.addFirst((tmp+buffer.get(0))*0.5*DECAY);
+        buffer.addLast((tmp+buffer.get(0))*0.5*DECAY);
     }
 
     /* Return the double at the front of the buffer. */
