@@ -45,7 +45,7 @@ public class TestGuitarString  {
         assertEquals(0.0, s.sample(), 0.0);
         s.pluck();
         double sample1 = s.sample();
-        assertNotEquals("After plucking, your samples should not be 0.", 0.0, sample1);
+        assertNotEquals("After plucking, your samples should not be 0.0", 0.0, sample1);
 
         s.tic();
         assertNotEquals("After tic(), your samples should not stay the same.", sample1, s.sample());

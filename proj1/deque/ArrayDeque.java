@@ -117,6 +117,11 @@ package deque;
     if(index<0 || index>=size){
         return null;
     }
-    return items[index];
+    int pos=(head+index)%size;
+    return items[pos];
+    }
+
+    public T getfirst(){
+        return items[head];
     }
 }
