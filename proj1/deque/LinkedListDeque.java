@@ -6,12 +6,12 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private int size;
     private Node sent;
 
-    private class Node{
+    private class Node {
         private T value;
         private Node head;
         private Node next;
 
-        public Node (T v, Node f, Node a) {
+        public Node(T v, Node f, Node a) {
             value = v;
             head = f;
             next = a;
@@ -51,20 +51,22 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     @Override
-//  Prints the items in the deque from first to last, separated by a space. Once all the items have been printed, print out a new line.
+//  Prints the items in the deque from first to last, separated by a space.
+//  Once all the items have been printed, print out a new line.
     public void printDeque() {
         Node temp = sent.next;
-        while (temp != sent){
+        while (temp != sent) {
             if (temp.next == sent) {
                 System.out.println(temp.value);
                 return;
             }
-            System.out.print(temp.value+" ");
+            System.out.print(temp.value + " ");
             temp = temp.next;
         }
     }
     @Override
-//  Removes and returns the item at the front of the deque. If no such item exists, returns null.
+//  Removes and returns the item at the front of the deque.
+//  If no such item exists, returns null.
     public T removeFirst() {
         if (isEmpty()) {
             return null;
@@ -90,13 +92,14 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     @Override
-//   Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth. If no such item exists, returns null. Must not alter the deque!
+//   Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth.
+//   If no such item exists, returns null. Must not alter the deque!
     public T get(int index) {
-        if (index<0 || index>size) {
+        if (index < 0 || index > size) {
             return null;
         }
         Node temp = sent.next;
-        for (int i=0;i<index;i++) {
+        for (int i = 0; i < index; i++) {
             temp = temp.next;
         }
         return temp.value;
@@ -107,7 +110,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         return new LinkedListDequeIterator<>();
     }
 
-    private class LinkedListDequeIterator<T> implements Iterator<T>{
+    private class LinkedListDequeIterator<T> implements Iterator<T> {
         private int current;
         public LinkedListDequeIterator() {
             current = 0;
@@ -118,15 +121,15 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         }
         @Override
         public T next() {
-            T tmp=(T) get(current);
+            T tmp = (T) get(current);
             current += 1;
             return tmp;
         }
     }
     @Override
     public boolean equals(Object o) {
-        if (o instanceof LinkedListDeque) {
-            LinkedListDeque otherarraydeque = (LinkedListDeque) o;
+        if (o instanceof Deque) {
+            Deque otherarraydeque = (Deque) o;
             if (otherarraydeque.size() != this.size()) {
                 return false;
             }
@@ -134,24 +137,10 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             while (ans < otherarraydeque.size()) {
                 if (!(otherarraydeque.get(ans).equals(this.get(ans)))) {
                     return false;
-                };
+                }
                 ans += 1;
             }
-        }
-        else if(o instanceof ArrayDeque) {
-            deque.ArrayDeque otherarraydeque = (deque.ArrayDeque) o;
-            if (otherarraydeque.size() != this.size()){
-                return false;
-            }
-            int ans = 0;
-            while (ans < otherarraydeque.size()) {
-                if (!(otherarraydeque.get(ans).equals(this.get(ans)))) {
-                    return false;
-                };
-                ans += 1;
-            }
-        }
-        else {
+        } else {
             return false;
         }
         return true;

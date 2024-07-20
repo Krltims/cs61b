@@ -1,7 +1,6 @@
 package deque;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 
 public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] items;
@@ -23,28 +22,29 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         } else {
             return;
         }
-        for (int i = 0; i < size(); i++){
-            newItems[i]=get(i);
+        for (int i = 0; i < size(); i++) {
+            newItems[i] = get(i);
         }
         items = newItems;
         head = minus_one(0);
         tail = size;
     }
-    private int minus_one(int num){
+    private int minus_one(int num) {
         if (num == 0) {
-            return items.length-1;
+            return items.length - 1;
         }
         return num - 1;
-        }
+    }
     private int plus_one(int num) {
-        if (num == items.length-1) {
+        if (num == items.length - 1) {
             return 0;
         }
         return num + 1;
     }
 
     @Override
-    //  Adds an item of type T to the front of the deque. You can assume that item is never null.
+    //  Adds an item of type T to the front of the deque.
+    //  You can assume that item is never null.
     public void addFirst(T item) {
         resize();
         if (isEmpty()) {
@@ -60,7 +60,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     public void addLast(T item) {
         resize();
         if (isEmpty()) {
-            head=minus_one(head);
+            head = minus_one(head);
         }
         items[tail] = item;
         tail = plus_one(tail);
@@ -88,7 +88,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     @Override
-    //  Removes and returns the item at the front of the deque. If no such item exists, returns null.
+    //  Removes and returns the item at the front of the deque.
+    //  If no such item exists, returns null.
     public T removeFirst() {
         if (isEmpty()) {
             return null;
@@ -110,7 +111,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         }
         resize();
         if (size == 1) {
-            head=plus_one(head);
+            head = plus_one(head);
         }
         tail = minus_one(tail);
         size -= 1;
@@ -133,11 +134,10 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         return new ArrayDequeIterator<T>();
     }
 
-    private class ArrayDequeIterator<T> implements Iterator<T>{
-
+    private class ArrayDequeIterator<T> implements Iterator<T> {
         private int current;
         public ArrayDequeIterator() {
-            current=0;
+            current = 0;
         }
         @Override
         public boolean hasNext() {
@@ -152,46 +152,32 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         }
     }
     private T getRecursive(int index) {
-        return helper(head,index);
+        return helper(head, index);
     }
-    private T helper(int head,int index) {
+    private T helper(int head1,int index) {
         if (index == -1) {
-            return items[head];
+            return items[head1];
         }
-        return helper(plus_one(head),index-1);
+        return helper(plus_one(head1),index - 1);
     }
 
     @Override
     public boolean equals(Object o) {
-        if(o instanceof ArrayDeque) {
-            ArrayDeque otherarraydeque = (ArrayDeque) o;
-            if(otherarraydeque.size() != this.size()) {
+        if (o instanceof Deque) {
+            Deque otherarraydeque = (Deque) o;
+            if (otherarraydeque.size() != this.size()) {
                 return false;
             }
             int ans = 0;
-            while(ans < otherarraydeque.size()) {
-                if(!(otherarraydeque.get(ans).equals(this.get(ans)))) {
+            while (ans < otherarraydeque.size()) {
+                if (!(otherarraydeque.get(ans).equals(this.get(ans)))) {
                     return false;
-                };
-                ans+=1;
-            }
-        }
-        else if (o instanceof LinkedListDeque) {
-            LinkedListDeque otherarraydeque = (LinkedListDeque) o;
-            if(otherarraydeque.size() != this.size()) {
-                return false;
-            }
-            int ans = 0;
-            while(ans < otherarraydeque.size()) {
-                if(!(otherarraydeque.get(ans).equals(this.get(ans)))) {
-                    return false;
-                };
+                }
                 ans += 1;
             }
-        }
-        else{
+        } else {
             return false;
         }
         return true;
-        }
+    }
 }
